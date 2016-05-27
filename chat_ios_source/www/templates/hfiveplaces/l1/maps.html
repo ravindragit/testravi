@@ -1,0 +1,187 @@
+<style type="text/css">
+#mapmodal{
+	display: none;
+}
+.bar .button.button-clear .icon:before{
+	font-size: 20px;
+}
+.modal, .modal-open .modal, .modal-backdrop{
+	height: 150px;
+  bottom: 0px!important;
+  top: auto!important;
+}
+.modal .bar-header{
+	height: 35px!important;
+	display: inline-block;
+	position: relative;
+}
+.modal .bar-header .title, .modal .bar-header .button-clear{
+	margin-top: 0px!important;
+	margin-top: -5px!important;
+}
+.mapwrapper{
+	margin-top: -5px;
+	padding: 5px;
+}
+.mapwrapper .map-link{
+	display: block;
+	text-transform: capitalize;
+}
+.mapwrapper .map-icon{
+	width: 30%;
+}
+.mapwrapper .map-title{
+	float: right;
+	width: 68%;
+}
+.mapwrapper .map-title{
+	margin: 0px;
+}
+.mapwrapper .map-title h4{
+	margin: 0px;
+	margin-top: -2px;
+}
+.mapwrapper .map-title p{
+	font-size: 14px;
+	color: #656464;
+	width: 100%;
+	margin: 0px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+.map-footer{
+	box-shadow: 0 -7px 8px rgba(0, 0, 0, 0.3);
+	height: 55px;
+	padding: 0px;
+}
+.map-footer .viewlink{
+	display: block;
+	text-align: center;
+	width: 25%;
+	font-size: 12px;
+  text-decoration: none;
+  color: #4E4D4D;
+  border-left: 1px solid rgba(128, 128, 128, 0.35);
+  border-right: 1px solid rgba(128, 128, 128, 0.35);
+}
+.map-footer .viewlink.selected{
+	color: #ffffff;
+	background-color: #0c63ee;
+  padding-top: 5px;
+}
+.map-footer .buttons a{
+	color: gray;
+	text-decoration: none;  
+}
+.map-footer .buttons.selected a{
+	color: #ffffff;
+}
+.map-footer .buttons i{
+	font-size: 25px!important;
+}
+.map-footer .title{
+	margin: 0px;
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+.map-footer #searchschool{
+  width: 70%;
+  float: left;
+  margin: 0px 5px;
+  margin-top: 15px;
+  text-align: center;
+}
+.map-footer #searchbtn{
+    margin-right: 5px;
+    margin-top: 15px;
+    width: 20%;
+    background-color: #0c63ee;
+    color: #ffffff;
+    border: 0px;
+    float: right;
+}
+.mapdetailswrapper{
+	background-color: #F3F1F1;
+	text-align: center;
+  font-size: 25px;
+  color: #0c60ee;
+}
+.mapdetailswrapper a{
+	color: #0c60ee;
+}
+</style>
+
+<ion-view cache-view="false">
+<ion-nav-title>{{ page_title }}</ion-nav-title>
+<ion-content scroll="false" class="maps">
+
+<div class="loader" ng-show="is_loading">
+  <ion-spinner class="spinner-custom"></ion-spinner>
+</div>
+
+<button class="button" ng-click="modal.show()" id="mapmodal">Open Modal</button>	   
+
+<input type="hidden" value="" id="modaladdressid" onclick="setmodaldata(this)">
+
+<div id="google-maps" class="map-canvas" hfive-maps map="map" config="map_config" ng-if="map_config" data-tap-disabled="true"></div>
+
+</ion-content>
+
+<script id="modal.html" type="text/ng-template">
+<div class="modal">      
+<header class="bar bar-header bar-positive">
+<h1 class="title">Child Care</h1>
+<div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+</header>
+<content has-header="true" padding="true">
+<div class="mapwrapper">
+<a href="{{maplink}}" class="map-link" ng-click="modal.hide()">
+<img class="map-icon" src="{{mappicture}}"/>
+<div class="map-title">
+<h4>{{maptitle}}</h4>
+<p>{{mapchildcare}}</p>
+<p style='margin-top: -3px;'>{{mapaddress}}</p>
+</div>
+</a>
+</div>
+<div class="mapdetailswrapper row">
+<div class="col col-31" style="border-right: 1px solid rgba(0, 0, 0, 0.3);">
+<a ng-click="window.open({{mapwebsite}});"><i class="ion-ios-world"></i></a>
+</div>
+<div class="col col-31" style="border-right: 1px solid rgba(0, 0, 0, 0.3);">
+<a href="{{mapemail}}"><i class="ion-at"></i></a>
+</div>
+<div class="col col-31">
+<a href="{{mapphone}}"><i class="ion-ios-telephone"></i></a>
+</div>
+</div>
+</content>
+</div>
+</script>
+
+</ion-view>
+
+<ion-footer-bar align-title="left" class="map-footer">
+<a href="{{mapviewurl}}" class="viewlink col col-33 selected">
+  <div class="buttons">
+    <i class="ion-android-pin"></i><br/>
+    Map View
+  </div>
+</a>
+
+<a href="{{searchviewurl}}" class="viewlink col col-33">
+  <div class="buttons">
+    <i class="ion-search"></i><br/>
+    Search
+  </div>
+</a>
+<a href="{{listviewurl}}" class="viewlink col col-33">
+  <div class="buttons">
+    <i class="ion-ios-list"></i><br/>
+    List View
+  </div>
+</a>
+</ion-footer-bar>

@@ -1,0 +1,90 @@
+<ion-view>
+    <ion-nav-title>{{ page_title }}</ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button ng-show="social_sharing_active" class="button button-clear" ng-click="share()">
+            <i class="icon ion-ios-upload-outline"></i>
+        </button>
+    </ion-nav-buttons>
+
+    <ion-content sb-background-image ng-class="{ 'has-tabs' : template_tabs && footer_is_tabs}">
+
+        <div class="loader" ng-show="is_loading">
+            <ion-spinner class="spinner-custom"></ion-spinner>
+        </div>
+
+        <div ng-include="template_header"></div>
+
+        <div ng-repeat="block in blocks" ng-if="!is_loading">
+
+            <div ng-switch on="block.type">
+                <div ng-switch-when="text" class="card">
+                    <div sb-cms-text block="block"></div>
+                </div>
+                <div ng-switch-when="image" class="card">
+                    <div sb-cms-image block="block" gallery="gallery"></div>
+                </div>
+                <div ng-switch-when="video">
+                    <div sb-cms-video block="block"></div>
+                </div>
+                <div ng-switch-when="address" class="card">
+                    <div sb-cms-address block="block" on-show-map="onShowMap(address)"></div>
+                </div>
+                <div ng-switch-when="button" class="card">
+                    <div sb-cms-button block="block"></div>
+                </div>
+                <div ng-switch-when="file" class="card">
+                    <div sb-cms-file block="block"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div ng-repeat-start="(k, daycare) in detaildaycare" ng-if="!is_loading" class="details card">
+
+            <div ng-switch on="daycare">
+                <div>
+                    <h4 class="titlesection">{{k}}</h4>
+                    <div class="item item-text-wrap item-custom eachcard">
+                        <div ng-repeat="(key, value) in daycare" class="daycareitem">
+                            <div ng-if="value!=''">
+                                <span class="key">{{key}} </span> : <span>{{value}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div ng-repeat-end>
+        
+
+        <div ng-include="template_footer"></div>
+
+    </ion-content>
+
+    <div ng-include="template_tabs"></div>
+
+</ion-view>
+
+<style type="text/css">
+.daycareitem{
+    padding: 1px 0px;
+    font-size: 14px;
+}
+.key{
+    color: gray;
+}
+.details.card{
+    margin: 0px 10px!important;
+}
+.eachcard{
+    border: 0px!important;
+    border-bottom: 1px solid rgba(68, 68, 68, 0.2)!important;
+}
+.titlesection{
+    padding-left: 15px;
+    color: #444;
+    margin-bottom: 0px;
+    font-size: 15px;
+    margin-top: 15px;
+}
+</style>

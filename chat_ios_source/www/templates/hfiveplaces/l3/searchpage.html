@@ -1,0 +1,210 @@
+<ion-view>
+    <ion-nav-title>{{ page_title }}</ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <div sb-tooltip collection="tooltip.collection" current-item="tooltip.current_item" button-label="tooltip.button_label" on-item-clicked="showTooltip(object)" ng-if="tooltip"></div>
+        <button ng-click="right_button.action()" class="button button-clear header-item" ng-if="right_button">
+            <span class="back-text"><span class="default-title">{{ right_button.label }}</span></span>
+            <i class="icon" ng-class="right_button.icon"></i>
+        </button>
+        <div class="buttons button-clear header-item" >
+            <button class="button button-clear" ng-click="clearsearch()">Clear
+            </button>
+        </div>
+    </ion-nav-buttons>
+
+    <ion-content sb-background-image>
+
+        <!--<ion-refresher-->
+        <!--pulling-text="{{ 'Pull to refresh...' | translate }}"-->
+        <!--on-refresh="refresh()"-->
+        <!--ng-if="refresh">-->
+        <!--</ion-refresher>-->
+
+        <div ng-include="template_header"></div>
+
+        <div class="loader" ng-show="is_loading">
+            <ion-spinner class="spinner-custom"></ion-spinner>
+        </div>
+
+        <div class="list search" ng-show="!is_loading && page_title">
+
+            <div class="card"> 
+            	<br/>
+                <div class="item item-text-wrap item-custom item-input-inset">                    
+					    <label class="item-input-wrapper">
+					      <input type="text" placeholder="School name" id="searchschool">
+					    </label>
+                </div>                
+
+			<div id="advancesearch" style="display:none;">
+
+                <div class="item item-text-wrap item-custom item-input-inset">                    
+					    <label class="item-input-wrapper">
+					      <input type="text" placeholder="Postal code" id="postalcode">
+					    </label>
+                </div>
+
+                
+                <div class="item item-text-wrap item-custom item-input">                    							    
+					    <ion-list style="width: 95%;">
+						  <ion-radio value="Nearest to me" style="font-size: 14px;text-align: center;" id="nearby" onclick="hideCity();">
+						  Nearest to me</ion-radio>
+						  <ion-radio value="City" style="font-size: 14px;text-align: center;" id="city" onclick="showCity();">City</ion-radio>
+						</ion-list>
+                </div> 
+
+                <div class="item item-text-wrap item-custom item-input-inset" id="citybox" style="display:none;">                    
+					    <label class="item-input-wrapper">
+					      <input type="text" placeholder="City" id="cityinput">
+					    </label>
+                </div>
+                
+                <div class="item item-text-wrap item-custom item-input item-select">                    		
+					    <div class="input-label">
+					      Child Care Centre Type
+					    </div>
+					    <select id="center_type">
+					    	<option>Any</option>
+					      	<option value"Child Care Centre">Child Care Centre</option>
+					    	<option value"Home Child Care Agency">Home Child Care Agency</option>
+					    	<option value"Home Child Care Centre (Unlicenced)">Home Child Care Centre (Unlicenced)</option>
+					    </select>
+                </div>          
+
+                <div class="item item-text-wrap item-custom item-input item-select">                    		
+					    <div class="input-label">
+					      Teaching Method
+					    </div>
+					    <select id="teaching_method">
+					    	<option>Any</option>
+					      	<option value"Conventional">Conventional</option>
+					    	<option value"Montessori">Montessori</option>
+					    	<option value"TBD1">TBD1</option>
+					    	<option value"TBD2">TBD2</option>
+					    </select>
+                </div>
+    
+
+                <div class="item item-text-wrap item-custom item-input item-select">                    		
+					    <div class="input-label">
+					      Programs by Age
+					    </div>
+					    <select id="program_age">
+					    	<option>Any</option>
+					      	<option value"Infant (Under 18 months)">Infant (Under 18 months)</option>
+					    	<option value"Toddler (1.5 yrs old to 2.5 yrs old)">Toddler (1.5 yrs old to 2.5 yrs old)</option>
+					    	<option value"Preschool (2.5 yrs old to 6 years)">Preschool (2.5 yrs old to 6 years)</option>
+					    	<option value"Kindergarten (44 months up to 68 months)">Kindergarten (44 months up to 68 months)</option>
+					    </select>
+                </div>
+    
+                 <div class="item item-text-wrap item-custom item-input item-select">                    		
+					    <div class="input-label">
+					      Children Capacity
+					    </div>
+					    <select id="children_capacity">
+					    	<option>Any</option>
+					      	<option value"Less than 10">Less than 10</option>
+					    	<option value"Between 10 and 50">Between 10 and 50</option>
+					    	<option value"Between 50 and 100">Between 50 and 100</option>
+					    	<option value="Greater than 100">Greater than 100</option>
+					    </select>
+                </div>
+
+                <div class="item item-text-wrap item-custom item-input item-select">                    		
+					    <div class="input-label">
+					      Language of Service
+					    </div>
+					    <select id="language">
+					    	<option>Any</option>
+					      	<option value"English">English</option>
+					    	<option value"French">French</option>
+					    	<option value"English and French">English and French</option>
+					    </select>
+                </div>
+
+                <div class="item item-text-wrap item-custom item-input-inset">                    
+					    <label class="item-input-wrapper">
+					      <input type="text" placeholder="Current Spots" id="currentspots">
+					    </label>
+                </div>
+
+            </div>
+            <div class="item item-text-wrap item-custom item-input-inset">
+	                <button class="button button-full button-small button-positive" onclick="seachsimpledata()" id="searcsimplehbtn">
+					  Search
+					</button>
+				</div>
+            </div>   
+
+        </div>
+
+        <div class="list" ng-if="!is_loading && !page_title">
+            <div class="item text-center item-custom">
+                {{ "No items found" | translate }}
+            </div>
+        </div>
+
+        <ion-infinite-scroll ng-if="can_load_older_posts"
+                             on-infinite="loadMore()"
+                             immediate-check="false"
+                             distance="10%"
+                             class="spinner-custom">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>
+
+<ion-footer-bar align-title="left" class="search-footer col">
+  <button class="button button-full button-positive" onclick="showadvancesearch()" id="advancebtn">
+  Advance Search
+</button>
+<button class="button button-full button-small button-positive" onclick="seachdata()" id="searchbtn" style="display:none;">
+  Search
+</button>
+</ion-footer-bar>
+
+<style type="text/css">
+::-webkit-input-placeholder {
+   color: rgba(68, 68, 68, 0.57)!important;
+}
+:-moz-placeholder { /* Firefox 18- */
+   color: rgba(68, 68, 68, 0.57)!important;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: rgba(68, 68, 68, 0.57)!important;  
+}
+
+:-ms-input-placeholder {  
+   color: rgba(68, 68, 68, 0.57)!important;  
+}
+.search-footer .button{
+	margin: 0px;
+}
+.list.search h5{
+	padding-top: 10px;
+}
+.list.search .item-custom{
+	border-top: 0px!important;
+	padding-top: 0px;
+}
+.list.search .button-bar > .button{
+	margin-right: 10px;
+}
+.list.search .button-bar > .button:last-child{
+	margin-right: 0px;
+}
+.input-label{
+	font-size: 14px;
+}
+.item-input-wrapper input{
+	width: 100%;
+	text-align: center;
+}
+.item-content{
+	padding: 5px!important;
+}
+.radio-icon.ion-checkmark{
+	top: -15px;
+}
+</style>
