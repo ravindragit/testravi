@@ -1,3 +1,5 @@
+workspace "loginredirect_ios_source-noads/AppsMobileCompany.xcodeproj"
+
 devices([
   "iPhone 4s",
   "iPhone 5",
