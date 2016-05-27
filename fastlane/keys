@@ -7,4 +7,5 @@ ENV["SIGH_USERNAME"] = ENV["APPLE_ID"]
 ENV["PILOT_APPLE_ID"] = ENV["APPLE_ID"]
 ENV["DELIVER_USERNAME"] = ENV["APPLE_ID"]
 ENV["PROJECT_FILE"] = "loginredirect_ios_source-noads/AppsMobileCompany.xcodeproj"
+ENV["FASTLANE_XCODE_LIST_TIMEOUT"] = 120
 
