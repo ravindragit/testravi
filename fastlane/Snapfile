@@ -11,7 +11,8 @@ languages([
   "en-US"
 ])
 
-app_identifier "io.fabric.ios"
+project "loginredirect_ios_source-noads/AppsMobileCompany.xcodeproj"
+app_identifier "com.mae.test.app5714b67dad01f"
 scheme "FabricUITests"
 configuration "Debug"
 
