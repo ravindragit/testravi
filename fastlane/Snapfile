@@ -13,10 +13,12 @@ languages([
 
 project "chat_ios_source/AppsMobileCompany.xcodeproj"
 app_identifier "com.portableappsstore.app573ee717152e8"
-scheme "FabricUITests"
-configuration "Debug"
+#scheme "FabricUITests"
+#configuration "Debug"
 
-number_of_retries 2
-reinstall_app true
-stop_after_first_error true
-clear_previous_screenshots true
+#number_of_retries 2
+#reinstall_app true
+#stop_after_first_error true
+#clear_previous_screenshots true
+# Where should the resulting screenshots be stored?
+screenshots_path "./screenshots"
