@@ -1,9 +1,9 @@
 for_lane :enterprise do
-  app_identifier "io.fabric.enterprise"
+  app_identifier "com.mae.test.app5714b67dad01f"
   team_id ""
 end
 
 for_lane :testflight do
-  app_identifier "io.fabric.ios"
+  app_identifier "com.mae.test.app5714b67dad01f"
   team_id ""
 end
